@@ -3,12 +3,6 @@
 ## Introduction
 
 A **queue** is a **linear data structure** that follows the **FIFO (First In, First Out)** principle.
-
-Think of it like a line at a ticket counter:
-
-- The person who enters the line **first** is the **first** to get the ticket.
-    
-- The person who enters **last** must **wait** for everyone before them.
     
 
 ### Example:

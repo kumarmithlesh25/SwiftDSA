@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "SwiftDSA",
             path: "Sources",
-            exclude: ["README.md", "Scripts"],
+            exclude: ["DataStructures/Queue/README.md"],
             sources: ["DataStructures"]
         ),
         .testTarget(
