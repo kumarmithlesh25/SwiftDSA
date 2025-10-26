@@ -53,7 +53,7 @@ import Testing
 
 @Test func testRemoveNodes() async throws {
     let list = DoublyLinkedList<Int>()
-    list.removeTail()
+    _ = list.removeTail()
     
     #expect(list.forwardList() == [])
     #expect(list.backwardList() == [])
@@ -64,7 +64,7 @@ import Testing
     #expect(list.forwardList() == [first])
     #expect(list.backwardList() == [first])
     
-    list.removeTail()
+    _ = list.removeTail()
     #expect(list.forwardList() == [])
     #expect(list.backwardList() == [])
     #expect(list.tail == nil)
@@ -73,7 +73,7 @@ import Testing
     let second = LinkedListNode(value: 2)
     list.addToTail(second)
     
-    list.removeTail()
+    _ = list.removeTail()
     #expect(list.forwardList() == [first])
     #expect(list.backwardList() == [first])
     

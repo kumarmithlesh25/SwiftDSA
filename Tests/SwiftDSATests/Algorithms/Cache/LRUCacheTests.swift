@@ -100,5 +100,61 @@ final class LRUCacheTests: XCTestCase {
         XCTAssertNotNil(cache.get(101))
         XCTAssertNotNil(cache.get(102))
     }
+    
+    func test_remove() {
+        let capacity = 5
+        let cache = LRUCache<Int, Data>(capacity: capacity)
+        
+        for i in 1...capacity {
+            cache.put(key: i, value: i.toData())
+        }
+        
+        /// Verify calling remove(key:) only deletes value corresponding to the key and the remaining cache is as expected
+        let keyToRemove = 5
+        XCTAssertNotNil(cache.get(keyToRemove))
+        cache.remove(key: keyToRemove)
+        
+        for i in 1...capacity {
+            let data = cache.get(i)
+            if i != keyToRemove {
+                XCTAssertNotNil(data)
+            } else {
+                XCTAssertNil(data)
+            }
+        }
+    }
+    
+    func test_clearAll() {
+        
+        /// Initialize cache and add elements to full capacity
+        let capacity = 5
+        let cache = LRUCache<Int, Data>(capacity: capacity)
+        
+        for i in 1...capacity {
+            cache.put(key: i, value: i.toData())
+        }
+        
+        /// Clear cache, this should remove values for keys 1-5
+        cache.clear()
+        
+        for i in 1...capacity {
+            let data = cache.get(i)
+            XCTAssertNil(data)
+        }
+        
+        /// add keys again to the cache
+        for i in 1...capacity {
+            cache.put(key: i, value: i.toData())
+        }
+        
+        /// Verify cache contains expected values for the added keys.
+        for i in 1...capacity {
+            guard let data = cache.get(i) else {
+                XCTFail()
+                return
+            }
+            XCTAssertEqual(i, data.convert())
+        }
+    }
 
 }

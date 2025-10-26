@@ -71,14 +71,16 @@ public final class DoublyLinkedList<T> {
         node.next?.previous = node.previous
     }
     
-    public func removeTail() {
+    public func removeTail() -> Node? {
+        guard let tail = tail else { return nil }
         guard head !== tail else {
             removeAll()
-            return
+            return tail
         }
         
-        tail?.previous?.next = nil
-        tail = tail?.previous
+        self.tail?.previous?.next = nil
+        self.tail = self.tail?.previous
+        return tail
     }
     
     // Removes tail
