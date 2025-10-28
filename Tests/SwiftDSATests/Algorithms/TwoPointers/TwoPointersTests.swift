@@ -50,4 +50,34 @@ final class TwoPointersTests: XCTestCase {
         TwoPointersSolution.reverseString(&text)
         XCTAssertEqual(text, "e\u{0301}faC")
     }
+    
+    // MARK: Benchmarking tests
+    func test_longest_substring_benchmark() {
+        scalingBenchmark()
+    }
+}
+
+
+extension TwoPointersTests {
+    func scalingBenchmark() {
+        for size in [1_000, 10_000, 100_000, 1_000_000, 10_000_000] {
+            let input = generateQuadraticWorstCaseInput(n: 10)
+            let string = String(repeating: input, count: size)
+            Benchmark.benchmark(name: "Longest Substring \(size) chars", runs: 3) {
+                _ = TwoPointersSolution.longestSubstringWithNonRepeatingCharacters(string)
+            }
+            print("----")
+        }
+    }
+    
+    /// Generate a string designed to trigger O(n^2) behavior
+    /// Example: for n=6 → "abcdefa"
+    func generateQuadraticWorstCaseInput(n: Int) -> String {
+        // Create n-1 unique characters (cycling through Unicode scalars)
+        let chars = (0..<(n - 1)).map { i in
+            Character(UnicodeScalar(65 + (i % 26))!) // A, B, C, ...
+        }
+        // Append a duplicate of the *first* character at the end
+        return String(chars) + String(chars.first!)
+    }
 }
