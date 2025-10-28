@@ -33,9 +33,26 @@ class StringProblems {
      Input: "{[]}"       → true
      Input: ""           → true  (empty string is valid)
      */
-    public static func isValidParenthesisString(_ input: String) -> Bool {
-        // TODO: - Implement 
-        return true
+    public class func isValidParenthesisString(_ input: String) -> Bool {
+        let parenthesisMap: [Character: Character] = ["{": "}", "(":")", "[":"]"]
+        var closingBraceStack = Stack<Character>()
+        
+        for character in input {
+            /// If the character is an opening brace
+            if let closing = parenthesisMap[character] {
+                /// Push corresponding closing brace to the stack
+                closingBraceStack.push(closing)
+            } else {
+                /// If not starting brace, the stack must have a close brace pushed into it earlier, otherwise return false.
+                guard let expected = closingBraceStack.pop(),
+                      expected == character  else {
+                    return false
+                }
+            }
+        }
+        
+        /// Check any pending open brace
+        return closingBraceStack.top == nil
     }
 }
 

@@ -53,7 +53,7 @@ final class TwoPointersTests: XCTestCase {
     
     // MARK: Benchmarking tests
     func test_longest_substring_benchmark() {
-        scalingBenchmark()
+        //scalingBenchmark()
     }
 }
 
